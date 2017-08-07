@@ -82,14 +82,23 @@ When the game first starts, each agent is sent an initialisation string which sp
 At each step in the game, a game-state string is generated and sent to all agents, which can then be read in via standard input. Coordinates are such that (0,0) represents the top left square of the board. Each state takes the following form:
 
 > x- and y-coordinates of the first apple
+>
 > x- and y-coordinates of the second apple
+>
 > description of zombie 0
+>
 > description of zombie 1
+>
 > description of zombie 2
+>
 > your snake number (an integer from 0 to 3)
+>
 > description of snake 0
+>
 > description of snake 1
+>
 > description of snake 2
+>
 > description of snake 3
 
 Each snake is described in the following format (note that zombies are similarly represented, but only their bodies are given):
@@ -99,14 +108,23 @@ Each snake is described in the following format (note that zombies are similarly
 To better describe what's going on here, let's look at a concerete example. Imagine that we receive the following game-state:
 
 > 7 12
+>
 > 8 16
+>
 > 40,40 43,40 43,39
+>
 > 37,30 33,30
+>
 > 0,0 4,0
+>
 > 0
+>
 > alive 26 2 10,12 15,12 15,7 5,7 5,2
+>
 > dead 6 6 14,13 19,13
+>
 > alive 2 1 12,13 12,14
+>
 > alive 10 8 10,2 15,2 15,6 16,6
 
 In this state, the first apple is located at position (7, 12), while the second is at (8,16). The next three lines represent the locations of the zombies. The first has its head at (40, 40) and occupies all squares from (40, 40) to (43, 40), as well as all squares from (43, 40) to (43, 39), while the second has its head at (37, 30) and occupies squares between (37, 30) and (33, 30). The final zombie has its head at (0, 0) and occupies squares between (0, 0) and (4, 0).
@@ -126,11 +144,17 @@ This snake is alive, has length 2, and 1 kill. Its head is at position (12, 13) 
 Once the game-state has been read in, your agent should use that information to decide on its next move. A move is simply made by printing out an integer in the range 0-6. The available moves are as follows:
 
 > 0	Up (relative to the play area - north)
+>
 > 1	Down (relative to the play area - south)
+>
 > 2	Left (relative to the play area - west)
+>
 > 3	Right (relative to the play area - east)
+>
 > 4	Left (relative to the head of your snake)
+>
 > 5	Straight (relative to the head of your snake)
+>
 > 6	Right (relative to the head of your snake)
 
 Note that if you output a move that is opposite to the direction you're currently headed, you will simply continue straight.
@@ -163,49 +187,50 @@ First download the library from our downloads page. Then create a new Java proje
 **must always be the first entry in the arguments**. You can also add arguments as described in section 1.2 earlier. Now you're ready to create your agent. Simply have your class inherit from DevelopmentAgent. Your class must override the `run()` method, which is where you'll put your agent logic. To illustrate, here's a sample agent that makes random moves:
 
 ```java
-import java.io.BufferedReader; 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader; 
+import java.io.InputStreamReader;
 import java.util.Random;
 
 public class MyAgent extends DevelopmentAgent {
 
-	public static void main(String args[]) throw s IOException { 
-     	MyAgent agent = new MyAgent(); 
+	public static void main(String args[]) throw s IOException {
+     	MyAgent agent = new MyAgent();
       	MyAgent.start(agent, args);
 	}
-  
-	@Override 
+
+	@Override
   	public void run() {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) { 				String initString = br.readLine();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+			String initString = br.readLine();
 			String[] temp = initString.split(" ");
 			int nSnakes = Integer.parseInt(temp[0]);
-             while (true) {
+            while (true) {
 				String line = br.readLine();
-				if (line.contains("Game Over")) { 
-                      break;
+				if (line.contains("Game Over")) {
+                	break;
 				}
-                  String apple1 = line;
-                  String apple2 = br.readLine(); 
-               	  //do stuff with apples
-               	  for (int i = 0; i < 3; i++) {
-               	      String zombie = br.readLine();
-               	  }
-                  int mySnakeNum = Integer.parseInt(br.readLine());
-                  for (int i = 0; i < nSnakes; i++) { 
-                      String snakeLine = br.readLine(); 
-                      if (i == mySnakeNum) {
-						//hey! That's me :)
+                String apple1 = line;
+                String apple2 = br.readLine();
+				//do stuff with apples
+				for (int i = 0; i < 3; i++) {
+					String zombie = br.readLine();
+				}
+				int mySnakeNum = Integer.parseInt(br.readLine());
+				for (int i = 0; i < nSnakes; i++) {
+					String snakeLine = br.readLine();
+					if (i == mySnakeNum) {
+						//hey! that's me :)
 					}
 					//do stuff with snakes
-				 }
-				 //finished reading, calculate move: 
-               	  System.out.println("log calculating..."); 
-                  int move = new Random().nextInt(4); 
-                  System.out.println(move);
+				}
+				//finished reading, calculate move:
+				System.out.println("log calculating...");
+				int move = new Random().nextInt(4);
+				System.out.println(move);
 			}
 		} catch (IOException e) {
-          	e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
@@ -226,19 +251,19 @@ numSnakes = int(split[0])
 
 while (True): #forever
     line = raw _input()
-	if "Game Over" in line:
+    if "Game Over" in line:
         break
-	apple1 = line
+    apple1 = line
 	apple2 = raw _input()
     for i in range(3):
-		zombie = raw _input()
+        zombie = raw _input()
     mySnakeNum = int(raw _input())
     for i in range(numSnakes):
-		line = raw _input()
-		if (i == mySnakeNum): 
-            #hey! That's me :)
-		#do stuff w ith snake    
-	#finished reading, calculate move:
+        line = raw _input()
+        if (i == mySnakeNum):
+            #hey! that's me :)
+        #do stuff with snake
+    #finished reading, calculate move:
     print "log calculating..."
     move = random.randint(0,4)
     print move
@@ -275,7 +300,7 @@ game_height	75
 
 
 
-## FAQ##
+## 3	FAQ##
 
 - Why does my snake never appear on the board?
 
@@ -298,6 +323,6 @@ game_height	75
 
 
 
-## Acknowledgements
+## 4	Acknowledgements
 
 The game engine and much of the documentation (contents of this file) was created by Steve James of the University of the Witwatersrand
